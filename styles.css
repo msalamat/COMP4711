@@ -1,0 +1,24 @@
+/* body {
+    background-color: #F0E9E4;
+    font-family: 'Nunito', sans-serif;
+    padding: 40px;
+} */
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.shadowize {
+    box-shadow: 5px 5px 5px grey;
+}
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}

@@ -1,0 +1,70 @@
+.hat {
+    border: double;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: lightgrey;
+}
+
+.center-box {
+    margin: auto;
+}
+
+.empty-box-bro {
+    display: block;
+    border: solid 0.5px lightgrey;
+    margin-left: 70px;
+    margin-right: 70px;
+    margin-bottom: 20px;
+    min-height: 1.5em;
+
+}
+
+.title-font {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+.hattybro {
+    margin-left: 50px;
+}
+
+.margins {
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.nights-watch {
+    font-family: 'Cute Font', cursive;
+}
+
+.person {
+    border: solid 0.5px lightgrey;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-top: 15px;
+    min-height: 4.5em;
+    display: flex;
+}
+
+.person-img {
+    margin-left: 20px;
+}
+
+.person-img:hover {
+    opacity: 0.5;
+}
+
+.person-title {
+    display: inline;
+    margin-left: 20px;
+}
+
+.img-box {
+    display: inline;
+}
+
+.killer {
+    margin: 0;
+    border: 0;
+}
+

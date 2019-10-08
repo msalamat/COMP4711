@@ -60,6 +60,8 @@ addArtist = () => {
     // to truly get a random number: https://stackoverflow.com/a/40591207
     const randomID = Date.now() + Math.round(Math.random())
     artistDiv.setAttribute('id', `${randomID}`)
+
+    clearForm()
 }
 
 getArtistDetails = () => {
@@ -78,4 +80,10 @@ deleteArtist = (ref) => {
     const artistID = ref.parentNode.parentNode.id
     const artist = document.getElementById(artistID)
     artist.remove()
+}
+
+clearForm = () => {
+    const form = document.getElementById('searchForm')
+    form.reset()
+    toggleAddRmvArtist()
 }

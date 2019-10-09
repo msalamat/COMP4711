@@ -1,7 +1,7 @@
 window.onload = () => {
     document.getElementById('searchForm').style.display = 'none'
     document.getElementsByClassName('form-submit')[0].style.display = 'none'
-    
+
     displayArtistsFromLocalStorage()
 }
 
@@ -34,6 +34,8 @@ addArtist = (...artistID) => {
 
         artistDiv.setAttribute('id', `${randomID}`)
         addArtistToLocalStorage(randomID)
+        
+        clearForm()
     } else { // an existing artist is being added back to the page
         const artist = JSON.parse(localStorage.getItem(`${artistID}`))
 
@@ -42,6 +44,7 @@ addArtist = (...artistID) => {
         img.src = artist.pic
         artistDiv.setAttribute('id', `${artistID}`)
     }
+
 
 }
 
@@ -81,6 +84,7 @@ constructArtistNodes = () => {
 
     return {artistDiv, h3, p, img}
 }
+
 getArtistDetails = () => {
     const formDetails = document.getElementById('searchForm').elements
 
@@ -112,4 +116,10 @@ displayArtistsFromLocalStorage = () => {
     for (let i of items) {
         addArtist(i[0]) // passing the id
     }
+}
+
+clearForm = () => {
+    const form = document.getElementById('searchForm')
+    form.reset()
+    toggleAddRmvArtist()
 }

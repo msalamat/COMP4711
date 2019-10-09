@@ -89,6 +89,15 @@
 }
 
 .title > form > input:nth-child(2) {
+
+    background-color: rgb(212, 212, 212);
+    min-height: 2em;
+    font-size: 1.5em;
+    padding: 1%;
+    font-weight: lighter;
+}
+
+.title > form > input:nth-child(3) {
     background-color: rgb(212, 212, 212);
     min-height: 2em;
     font-size: 1.5em;
@@ -130,3 +139,9 @@ input::placeholder {
     src: url(../Fonts/asimovprintd-webfont.woff);
     src: url(../Fonts/asimovprintd-webfont.woff2);
 }
+
+input[type=search]{
+    -moz-appearance: none;/* older firefox */
+    -webkit-appearance: none; /* safari, chrome, edge and ie mobile */
+    appearance: none; /* rest */
+ }

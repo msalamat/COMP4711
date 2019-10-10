@@ -78,7 +78,7 @@
     font-size: 2em;
 }
 
-.title > form > input:first-child {
+.title > div > input:first-child {
     width: 70%;
     margin-left: 5%;
     margin-right: 2%;
@@ -88,7 +88,7 @@
     font-size: 1.5em;
 }
 
-.title > form > input:nth-child(2) {
+.title > div > input:nth-child(2) {
 
     background-color: rgb(212, 212, 212);
     min-height: 2em;
@@ -97,7 +97,7 @@
     font-weight: lighter;
 }
 
-.title > form > input:nth-child(3) {
+.title > div > input:nth-child(3) {
     background-color: rgb(212, 212, 212);
     min-height: 2em;
     font-size: 1.5em;

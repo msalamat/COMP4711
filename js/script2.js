@@ -1,3 +1,4 @@
+// TODO update forEach() usages with better ES6 stuffs like map/reduce/filter etc
 window.onload = () => {
     document.getElementById('searchForm').style.display = 'none'
     document.getElementsByClassName('form-submit')[0].style.display = 'none'
@@ -44,8 +45,6 @@ addArtist = (...artistID) => {
         img.src = artist.pic
         artistDiv.setAttribute('id', `${artistID}`)
     }
-
-
 }
 
 constructArtistNodes = () => {
@@ -123,3 +122,47 @@ clearForm = () => {
     form.reset()
     toggleAddRmvArtist()
 }
+
+searchArtistAndDisplay = () => {
+    let allArtists = Object.entries(localStorage)
+    let searchQuery = document.getElementsByTagName('input')[0].value.toUpperCase()
+
+    let artistsById = []
+
+    // TODO update this stuff with better functions like map / reduce and all that good stuffs
+    for (let i of allArtists) {
+        let id = i[0]
+        let name = JSON.parse(i[1]).name.toUpperCase()
+        
+        if (name.includes(searchQuery)) {
+            artistsById.push(id)
+        }
+    }
+
+    hideArtists(artistsById)
+}
+
+hideArtists = (artistIds) => {
+
+    console.log(artistIds)
+    let allArtists = [...document.getElementsByClassName('artist')]
+    
+    // TODO update this stuffs with better ES6 functions
+    allArtists.forEach( (artist) => {
+        if (!artistIds.includes(artist.id)) {
+            artist.style.display = "none"
+        } else {
+            artist.style.display = "flex"
+        }
+    })
+}
+
+let searchField = document.getElementById('search-field')
+
+searchField.addEventListener("keyup", function(event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        document.getElementById("search-btn").click();
+  }
+});
+

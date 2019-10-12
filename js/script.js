@@ -57,6 +57,9 @@ addArtist = () => {
     button.innerText = 'Delete'
     button.setAttribute("onclick", "deleteArtist(this)")
 
+    img.setAttribute("width","75")
+    img.setAttribute("height","75")
+    
     // to truly get a random number: https://stackoverflow.com/a/40591207
     const randomID = Date.now() + Math.round(Math.random())
     artistDiv.setAttribute('id', `${randomID}`)

@@ -81,6 +81,9 @@ constructArtistNodes = () => {
     button.innerText = 'Delete'
     button.setAttribute("onclick", "deleteArtist(this)")
 
+    img.setAttribute("width","75")
+    img.setAttribute("height","75")
+
     return {artistDiv, h3, p, img}
 }
 
@@ -165,4 +168,3 @@ searchField.addEventListener("keyup", function(event) {
         document.getElementById("search-btn").click();
   }
 });
-

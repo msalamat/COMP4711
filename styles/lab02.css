@@ -17,8 +17,9 @@
     display: flex;
     border: 1px solid lightgrey;
     width: 400px;
-    padding: 10px;
     border-top-style: none;
+    padding: 10px;
+    padding-left: 13px;
 }
 
 .artist:hover {

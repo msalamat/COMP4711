@@ -1,4 +1,4 @@
-# Fight on! Fight on Mob!
+# https://momomo.ca
 
 
-https://momomo.ca
+Temporarily offline until Node is set up on the server.

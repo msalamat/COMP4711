@@ -2,3 +2,5 @@
 *.code-workspace
 *.zip
 node_modules/
+.vscode/
+.vs_code

@@ -1,0 +1,19 @@
+.table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shadowize {
+  box-shadow: 5px 5px 5px grey;
+}
+
+/* https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}

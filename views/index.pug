@@ -1,57 +1,57 @@
 doctype html
 head
-	title MS HOMEPAGE
-	link(href='https://fonts.googleapis.com/css?family=Nunito&display=swap' rel='stylesheet')
-	link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css')
-	link(rel='stylesheet', href='/stylesheets/style.css')
+  title MS HOMEPAGE
+  link(href='https://fonts.googleapis.com/css?family=Nunito&display=swap' rel='stylesheet')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  link(rel='stylesheet', href='/stylesheets/tooltip.css')
 
-	//- <link rel="stylesheet" href="./styles/tooltip.css">
 body.Site
-	main.Site-content
-		section.hero.is-info
-			.hero-body.shadowize
-				.container
-					h1.title
-						| Mohammad Salamat
-		section.section
-			.container
-				h1.title About me
-				h2.subtitle
-					| I think #[strong Pug] is a #[em great] invention by humans.
-		table.table
-			thead
-				tr
-					th Courses (Fall 2019)
-					th 4711 Labs
-			tbody
-				tr
-					th
-						a(href='https://www.bcit.ca/study/outlines/20193035498') Internet Software: COMP 4711
-					th
-						a.tooltip.is-tooltip-right.is-tooltip-primary(href='#' data-tooltip='Making the homepage :)') Lab 01
-				tr
-					th
-						a(href='https://www.bcit.ca/study/outlines/20193035501') iOS: COMP 4977
-					th
-						a.tooltip.is-tooltip-right.is-tooltip-danger(href='/labs/2' data-tooltip='Imitating a picture given to us') Lab 02
-				tr
-					th
-						a(href='https://www.bcit.ca/study/outlines/20193045353') Statistics: MATH 3042
-					th
-						a.tooltip.is-tooltip-right.is-tooltip-warning(href='/labs/3' data-tooltip='Giving the ability to add and remove artists') Lab 03
-				tr
-					th
-						a(href='https://www.bcit.ca/study/outlines/20193041925') ASP.NET Core: COMP 4976
-					th
-						a.tooltip.is-tooltip-right.is-tooltip-success(href='/labs/4' data-tooltip='Implementing localStorage and adding search functionality') Lab 04
-				tr
-					th
-						a(href='https://www.bcit.ca/study/outlines/20193035493') Business Law: BLAW 3600
-					th
-						a.tooltip.is-tooltip-right.is-tooltip-success(href='#' data-tooltip='Utilizing Node to save data server side') Lab 05
-		br
-	footer.footer
-		.container
-			.content.has-text-centered
-				p
-					| #[strong &copy; 2019 Mohammad Salamat]
+  main.Site-content
+    section.hero.is-info
+      .hero-body.shadowize
+        .container
+          h1.title
+            | Mohammad Salamat
+    section.section
+      .container
+        h1.title About me
+        h2.subtitle
+          | I think #[strong Pug] is a #[em great] invention by humans.
+    table.table
+      thead
+        tr
+          th Courses (Fall 2019)
+          th 4711 Labs
+      tbody
+        tr
+          th
+            a(href='https://www.bcit.ca/study/outlines/20193035498') Internet Software: COMP 4711
+          th
+            a.tooltip.is-tooltip-right.is-tooltip-primary(href='#' data-tooltip='Making the homepage :)') Lab 01
+        tr
+          th
+            a(href='https://www.bcit.ca/study/outlines/20193035501') iOS: COMP 4977
+          th
+            a.tooltip.is-tooltip-right.is-tooltip-danger(href='/labs/2' data-tooltip='Imitating a picture given to us') Lab 02
+        tr
+          th
+            a(href='https://www.bcit.ca/study/outlines/20193045353') Statistics: MATH 3042
+          th
+            a.tooltip.is-tooltip-right.is-tooltip-warning(href='/labs/3' data-tooltip='Giving the ability to add and remove artists') Lab 03
+        tr
+          th
+            a(href='https://www.bcit.ca/study/outlines/20193041925') ASP.NET Core: COMP 4976
+          th
+            a.tooltip.is-tooltip-right.is-tooltip-success(href='/labs/4' data-tooltip='Implementing localStorage and adding search functionality') Lab 04
+        tr
+          th
+            a(href='https://www.bcit.ca/study/outlines/20193035493') Business Law: BLAW 3600
+          th
+            a.tooltip.is-tooltip-right.is-tooltip-success(href='#' data-tooltip='Utilizing Node to save data server side') Lab 05
+    br
+  footer.footer
+    .container
+      .content.has-text-centered
+        p
+          | #[strong &copy; 2019 Mohammad Salamat]

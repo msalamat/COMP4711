@@ -2,11 +2,11 @@ window.onload = () => {
     document.getElementById('searchForm').style.display = 'none'
     document.getElementsByClassName('form-submit')[0].style.display = 'none'
 
-    //displayArtistsFromFiles()
+    displayArtistsFromFiles()
 }
 
 addArtist = () => {
-    
+
     const artist = getArtistDetails() // object. if I do JSON.stringify turns into json (as a string)
     const randomID = Date.now() + Math.round(Math.random())
     artist.id = randomID
@@ -25,7 +25,20 @@ addArtist = () => {
         console.error('Error:', error)
     }
 
+    displayArtist(artist)
+
     clearForm()
+}
+
+displayArtist = (artist) => {
+    const {artistDiv, h3, p, img} =  constructArtistNodes()
+
+    h3.innerText = artist.name
+    p.innerText = artist.desc
+    img.src = artist.pic
+    artistDiv.setAttribute('id', `${artist.id}`)
+    console.log(artist.id)
+
 }
 
 constructArtistNodes = () => {
@@ -99,20 +112,56 @@ toggleAddRmvArtist = () => {
     }
 }
 
-async function postData(url = '', data = {}) {
-    // Default options are marked with *
+displayArtistsFromFiles = () => {
+    const url = 'http://localhost:3000/labs/5/artists'
+
+    const response = getData(url)
+
+    response.then((result) => {
+        // just to see what's going on!
+        stringJSON = JSON.stringify(result)
+        jsonJSON = JSON.parse(stringJSON)
+        jsonJSON.forEach((item) => {
+            const {artistDiv, h3, p, img} =  constructArtistNodes()
+
+            h3.innerText = item.name
+            p.innerText = item.desc
+            img.src = item.pic
+            artistDiv.setAttribute('id', `${item.id}`)
+        })
+        //console.log(jsonJSON[0].name)
+        
+    })
+}
+
+deleteArtist = (ref) => {
+    const url = 'http://localhost:3000/labs/5'
+
+    const artistID = ref.parentNode.parentNode.id
+    const artist = document.getElementById(artistID)
+
+    artist.remove() // remove nodes
+
+    let id = []
+    id.push(artistID)
+
+    try {
+        fetch(url, {
+            method: 'DELETE',
+            body: JSON.stringify(id), // not sure how to send purely string through
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    } catch (error) {
+        console.error('Error:', error)
+    }
+}
+
+async function getData(url = '') {
     const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrer: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return await response.json(); // parses JSON response into native JavaScript objects
+        method: 'GET',
+    })
+
+    return await response.json() // parses JSON response into native JavaScript objects
 }

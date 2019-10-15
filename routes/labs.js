@@ -21,6 +21,20 @@ router.get('/5', (req, res, next) => {
     res.render('lab05')
 });
 
+router.get('/5/artists', (req, res, next) => {
+    const fs = require('fs');
+    const path = process.cwd() + '/public/files/artists.json'
+
+    fs.readFile(path, (err, data) => {
+        if (err) {
+          console.error("error: " + err)
+          return
+        }
+        res.send(data) // how to do this with res.json(data) ? on other side I get bytes
+      })
+
+})
+
 router.post('/5', (req, res, next) => {
     const fs = require('fs')
 
@@ -32,7 +46,7 @@ router.post('/5', (req, res, next) => {
     try {
         fs.readFile(path, function (err, data) {
             var json = JSON.parse(data);
-            console.log(json);
+            console.log("json: " + json);
             json.push(artist);
 
             fs.writeFile(path, JSON.stringify(json), function (err) {
@@ -43,5 +57,32 @@ router.post('/5', (req, res, next) => {
         console.error('Error:', error)
     }
 });
+
+router.delete('/5',  (req, res) => {
+    const fs = require('fs')
+    const path = process.cwd() + '/public/files/artists.json'
+
+    let id = req.body
+    id = id[0]
+    
+    try {
+        fs.readFile(path, function (err, data) {
+            let jsonArtists = JSON.parse(data);
+
+            const filterItems = (arr, query) => {
+                return arr.filter(item => item.id.toString() !== query.toString());
+            };
+
+            let filteredArtists = filterItems(jsonArtists, id)
+            
+            fs.writeFile(path, JSON.stringify(filteredArtists), function (err) {
+                if (err) throw err;
+            });
+
+        });
+    } catch (error) {
+        console.error('Error:', error)
+    }
+})
 
 module.exports = router;

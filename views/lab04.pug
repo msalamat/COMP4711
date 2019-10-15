@@ -9,19 +9,19 @@ html(lang="en")
 
         title Lab04
     body
-        .container
-            .title
-                h2 Artist Directory
-                div
-                    input#search-field(type="search")
-                    input(type="button" value="Add" onclick="toggleAddRmvArtist()")
-                    input#search-btn(type="button" value="Search" onclick="searchArtistAndDisplay()")
-            form#searchForm(action="" method="get")
-                input(type="text" name="" id="" placeholder="Artist Name" maxlength="40")
-                .break
-                input(type="text" name="" id="" placeholder="About artist" maxlength="40")
-                .break
-                input(type="text" name="" id="" placeholder="Image url")
-            input#searchForm.form-submit(type="submit" value="Add" onclick="addArtist()")
-            .break
-            .artist-bar
+      .container
+        .title
+          h2 Artist Directory
+          div
+            input#search-field(type="search")
+            input(type="button" value="Add" onclick="toggleAddRmvArtist()")
+            input#search-btn(type="button" value="Search" onclick="searchArtistAndDisplay()")
+        form#searchForm(action="" method="get")
+          input(type="text" name="" id="" placeholder="Artist Name" maxlength="40")
+          .break
+          input(type="text" name="" id="" placeholder="About artist" maxlength="40")
+          .break
+          input(type="text" name="" id="" placeholder="Image url")
+        input#searchForm.form-submit(type="submit" value="Add" onclick="addArtist()")
+        .break
+        .artist-bar

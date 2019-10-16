@@ -3,7 +3,7 @@ window.onload = () => {
     document.getElementById('searchForm').style.display = 'none'
     document.getElementsByClassName('form-submit')[0].style.display = 'none'
 
-    displayArtistsFromLocalStorage()
+    //displayArtistsFromLocalStorage()
 }
 
 toggleAddRmvArtist = () => {
@@ -164,7 +164,7 @@ let searchField = document.getElementById('search-field')
 
 searchField.addEventListener("keyup", function(event) {
     if (event.keyCode == 13) {
-        event.preventDefault();
-        document.getElementById("search-btn").click();
+        event.preventDefault()
+        document.getElementById("search-btn").click()
   }
-});
+})

@@ -8,10 +8,11 @@ window.onload = () => {
 addArtist = () => {
 
     const artist = getArtistDetails() // object. if I do JSON.stringify turns into json (as a string)
+
     const randomID = Date.now() + Math.round(Math.random())
     artist.id = randomID
 
-    const url = 'http://localhost:3000/labs/5'
+    const url = '/labs/5'
 
     try {
         fetch(url, {
@@ -37,8 +38,6 @@ displayArtist = (artist) => {
     p.innerText = artist.desc
     img.src = artist.pic
     artistDiv.setAttribute('id', `${artist.id}`)
-    console.log(artist.id)
-
 }
 
 constructArtistNodes = () => {
@@ -100,7 +99,7 @@ clearForm = () => {
 }
 
 toggleAddRmvArtist = () => {
-    var x = document.getElementById('searchForm')
+    let x = document.getElementById('searchForm')
     let y = document.getElementsByClassName('form-submit')[0]
 
     if (x.style.display === 'none' || y.style.display === 'none') {
@@ -113,14 +112,15 @@ toggleAddRmvArtist = () => {
 }
 
 displayArtistsFromFiles = () => {
-    const url = 'http://localhost:3000/labs/5/artists'
+    const url = '/labs/5/artists'
 
     const response = getData(url)
 
     response.then((result) => {
         // just to see what's going on!
-        stringJSON = JSON.stringify(result)
-        jsonJSON = JSON.parse(stringJSON)
+        let stringJSON = JSON.stringify(result)
+        let jsonJSON = JSON.parse(stringJSON) // i.e. result
+
         jsonJSON.forEach((item) => {
             const {artistDiv, h3, p, img} =  constructArtistNodes()
 
@@ -128,14 +128,12 @@ displayArtistsFromFiles = () => {
             p.innerText = item.desc
             img.src = item.pic
             artistDiv.setAttribute('id', `${item.id}`)
-        })
-        //console.log(jsonJSON[0].name)
-        
+        })        
     })
 }
 
 deleteArtist = (ref) => {
-    const url = 'http://localhost:3000/labs/5'
+    const url = '/labs/5'
 
     const artistID = ref.parentNode.parentNode.id
     const artist = document.getElementById(artistID)
@@ -148,7 +146,7 @@ deleteArtist = (ref) => {
     try {
         fetch(url, {
             method: 'DELETE',
-            body: JSON.stringify(id), // not sure how to send purely string through
+            body: JSON.stringify(id), // not sure how to send a pure string through..
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -158,10 +156,52 @@ deleteArtist = (ref) => {
     }
 }
 
+searchArtistAndDisplay = () => {
+    const url = '/labs/5/artists'
+
+    const response = getData(url)
+
+    let searchQuery = document.getElementsByTagName('input')[0].value.toUpperCase()
+    response.then((allArtists) => {        
+        let artists = []
+
+        for (let item of allArtists) {
+            let name = item.name.toUpperCase()
+            
+            if (name.includes(searchQuery)) {
+                artists.push(item.id)
+            }
+        }
+        hideArtists(artists)
+    })
+}
+
+hideArtists = (artistIds) => {
+
+    let allArtists = [...document.getElementsByClassName('artist')]
+
+    allArtists.forEach((artist) => {
+        if (!artistIds.includes(Number(artist.id))) {
+            artist.style.display = "none"
+        } else {
+            artist.style.display = "flex"
+        } 
+    })
+}
+
 async function getData(url = '') {
     const response = await fetch(url, {
         method: 'GET',
     })
 
-    return await response.json() // parses JSON response into native JavaScript objects
+    return await response.json()
 }
+
+let searchField = document.getElementById('search-field')
+
+searchField.addEventListener("keyup", function(event) {
+    if (event.keyCode == 13) {
+        event.preventDefault()
+        document.getElementById("search-btn").click()
+  }
+})

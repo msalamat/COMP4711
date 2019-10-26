@@ -17,3 +17,11 @@
 .Site-content {
   flex: 1;
 }
+
+#name {
+    font-family: 'Zilla Slab', serif;
+}
+
+main {
+    background: hsl(0, 0%, 96%);
+}

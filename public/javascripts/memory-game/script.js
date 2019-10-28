@@ -29,24 +29,6 @@ const clicked = (ref) => {
     if (!clickingLock) {
         let indicies = JSON.parse(localStorage.getItem('indicies'))
 
-        // THE LOGIC
-
-        // do you have clicks remaining?
-        // yes?
-        //      has the button already been clicked?
-        //      (i.e. button has error-img tag
-        //        OR button's color is palegreen)
-        //      yes?
-        //          do nothing
-        //      no?
-        //          clicks--
-        //          is it a successful click?
-        //              give green colour to btn
-        //          is it a failed click?
-        //              give error picture to btn
-        // no?
-        //      do nothing
-
         if (clicksLeft > 0) {
             // TODO can use our buddy demorgan to reduce things !(a or b) = !a and !b
             if (ref.classList.contains('error-img') || (ref.style.backgroundColor) === "palegreen") {
@@ -93,6 +75,26 @@ const startRound = () => {
         resetColour()
         clickingLock = false
     }, 3000);
+}
+
+const nextRound = () => {
+    resetRoundData()
+}
+
+const resetRoundData = () => {
+    clicksLeft = 5
+
+    element.classList.remove("rotate-90");
+    element.classList.add("rotate-neg-90");
+
+    let bob = [...document.getElementsByClassName("button")].forEach(
+        (element, index, array) => {
+            element.removeAttribute('id')
+            element.removeAttribute('style') // guess we have to do this too..
+            element.style.backgroundColor = "f1c40f"
+            element.classList.remove('error-img')
+        })
+
 }
 
 const getIndicies = () => {

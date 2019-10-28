@@ -53,7 +53,7 @@ const clicked = (ref) => {
                 console.log('do nothing')
             } else {
                 --clicksLeft
-                if (indicies.includes(Number(ref.id))) {
+                if (ref.id !== "" && indicies.includes(Number(ref.id))) {
                     ref.style.backgroundColor = "palegreen"
                     ++score
                 } else {

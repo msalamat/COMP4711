@@ -1,11 +1,11 @@
 let element = document.getElementById("game-container");
-let clicksLeft = 6
+let clicksLeft = 5
 let clickingLock = true
+let score = 0
 
 const rotate = () => {
     element.classList.add("rotate-90");
     element.classList.remove("rotate-neg-90");
-
 }
 
 const resetColour = () => {
@@ -55,9 +55,14 @@ const clicked = (ref) => {
                 --clicksLeft
                 if (indicies.includes(Number(ref.id))) {
                     ref.style.backgroundColor = "palegreen"
+                    ++score
                 } else {
                     ref.classList.add('error-img')
+                    if (score > 0) {
+                        --score
+                    }
                 }
+                updateScore()
             }
         } else {
             console.log('no clicks left')
@@ -102,6 +107,11 @@ const getIndicies = () => {
 
 const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+const updateScore = () => {
+    let scoreLabel = document.getElementById('score')
+    scoreLabel.textContent = 'score: ' + score
 }
 
 startRound()

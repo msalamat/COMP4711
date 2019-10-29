@@ -1,10 +1,18 @@
-
-
-let gridSize = 5
+// "A global variable automatically becomes a part of the window object."
+// windows.clicksLeft === undefined 
+// If declared with var, windows.clicksLeft !=== undefined and instead === 5
 let clicksLeft = 5
-let clickingLock = true
 let score = 0
+
+let clickingLock = true
 let oneWrong = false
+
+let nrow = 5
+let ncol = 5
+
+let switcher = true
+
+let level = 1
 
 let targetObj = {}
 let targetProxy = new Proxy(targetObj, {
@@ -17,7 +25,7 @@ let targetProxy = new Proxy(targetObj, {
 
 const startRound = () => {
     clickingLock = true
-    // generate random unique numbers between 0-gridSide^2 (i.e. 25, 36, 49, etc..)
+
     let indicies = getIndicies()
     let indiciesAsArray = Array.from(indicies).sort((a, b) => a - b)
 
@@ -26,7 +34,7 @@ const startRound = () => {
 
     let filteredButtons = buttons.filter((_, index) => indicies.has(index))
 
-    filteredButtons.forEach( (element, index, array) => {
+    filteredButtons.forEach((element, index, array) => {
         element.style.backgroundColor = "palegreen"
         element.setAttribute("id", indiciesAsArray[index])
     })
@@ -84,32 +92,44 @@ const clicked = (ref) => {
 
                     ref.classList.add('error-img')
                     
-                    if (score > 0) {
-                        --score
-                    }
+                    --score
                 }
                 updateScore()
+
                 targetProxy.value = clicksLeft
+
+                if (score < 0) {
+                    console.log('LOST')
+                }
             }
         } else {
             console.log('no clicks left')
         }
     }
 }
-
+ 
 const nextRound = () => {
     // 1. decide whether to proceed in game difficulty
     if (oneWrong) {
-        // 1.1 reduce matrix size by n-1, condition n >= 5
-        if (gridSize !== 5) {
-            --gridSize
+        // 1.1 reduce either nrow or ncol
+        if (nrow === ncol) {
+            --ncol
+        } else if (nrow < ncol) {
+            --ncol
+        } else if (nrow > ncol) {
+            --nrow
         }
-    } else {
-        // 1.2 increase size
-        ++gridSize
-    }
 
-    console.log('gridSize: ' + gridSize)
+    } else {
+        // 1.2 increase either nrow or ncol
+        if (nrow === ncol) {
+            ++nrow
+        } else if (nrow < ncol) {
+            ++nrow
+        } else if (nrow > ncol) {
+            ++ncol
+        }
+    }
 
     // 2. reset data and restore game buttons to original state
     resetRoundData()
@@ -118,7 +138,7 @@ const nextRound = () => {
     clearGameBoard()
 
     // 4. construct new buttons
-    let nodes = constructButtonNodes(gridSize)
+    let nodes = constructButtonNodes(nrow, ncol)
     // 5. insert new buttons into DOM
     insertButtonsToDOM(nodes)
 
@@ -134,14 +154,13 @@ const insertButtonsToDOM = (buttons) => {
 
     let k = 0
 
-    for (let i = 0; i < gridSize; ++i) {
+    for (let i = 0; i < nrow; ++i) {
         const div = document.createElement('div')
 
-        for (let j = 0; j < gridSize; ++j) {
-            console.log('k: ' + k)
+        for (let j = 0; j < ncol; ++j) {
             div.appendChild(buttons[k++])
-
         }
+
         gameContainerDiv.appendChild(div)
     }
 
@@ -149,10 +168,10 @@ const insertButtonsToDOM = (buttons) => {
     containerDiv.appendChild(gameContainerDiv)
 }
 
-const constructButtonNodes = (n) => {
+const constructButtonNodes = (nrow, ncol) => {
     let buttons = []
 
-    for (let i = 0; i < Math.pow(n, 2); ++i) {
+    for (let i = 0; i < nrow * ncol; ++i) {
         let button = document.createElement('button')
         button.setAttribute('onclick', 'clicked(this)')
         button.classList.add('button')
@@ -178,7 +197,7 @@ const clearGameBoard = () => {
 
 const resetRoundData = () => {
 
-    clicksLeft = gridSize
+    clicksLeft = Math.min(nrow, ncol)
 
     oneWrong = false
 
@@ -190,7 +209,7 @@ const resetRoundData = () => {
     let bob = [...document.getElementsByClassName("button")].forEach(
         (element, index, array) => {
             element.removeAttribute('id')
-            element.removeAttribute('style') // guess we have to do this too..
+            element.removeAttribute('style')
             element.style.backgroundColor = "f1c40f"
             element.classList.remove('error-img')
         })
@@ -199,8 +218,8 @@ const resetRoundData = () => {
 const getIndicies = () => {
     const nums = new Set();
 
-    while(nums.size !== gridSize) {
-        nums.add(getRandomInt(Math.pow(gridSize, 2)));
+    while(nums.size !== Math.min(nrow, ncol)) {
+        nums.add(getRandomInt(Math.pow(Math.min(nrow, ncol), 2)));
     }
     
     return nums
@@ -226,10 +245,10 @@ const initializeGame = () => {
 
     let k = 0
 
-    for (let i = 0; i < gridSize; ++i) {
+    for (let i = 0; i < nrow; ++i) {
         const div = document.createElement('div')
 
-        for (let j = 0; j < gridSize; ++j) {
+        for (let j = 0; j < ncol; ++j) {
             let button = document.createElement('button')
 
             button.setAttribute('onclick', 'clicked(this)')

@@ -9,14 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: snow;
-    padding-top: 1%;
+    background-color: seashell;
+    /* padding-top: 0%; */
 }
 
 #game-container {
-    border: 1px solid wheat;
-    padding: 10px;
-    
+    /* border: 1px solid wheat; */
+    /* padding: 10px; */
 }
 
 .button {
@@ -27,8 +26,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    margin: 4px 4px;
     cursor: pointer;
 }
 

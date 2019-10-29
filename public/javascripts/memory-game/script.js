@@ -12,7 +12,8 @@ let ncol = 5
 
 let switcher = true
 
-let level = 1
+let round = 0
+let numTiles = 5
 
 let targetObj = {}
 let targetProxy = new Proxy(targetObj, {
@@ -22,6 +23,12 @@ let targetProxy = new Proxy(targetObj, {
     }  
   }
 })
+
+window.onload = () => {
+    updateScore()
+    updateRound()
+    updateTiles()
+}
 
 const startRound = () => {
     clickingLock = true
@@ -109,6 +116,7 @@ const clicked = (ref) => {
 }
  
 const nextRound = () => {
+
     // 1. decide whether to proceed in game difficulty
     if (oneWrong) {
         // 1.1 reduce either nrow or ncol
@@ -130,6 +138,15 @@ const nextRound = () => {
             ++ncol
         }
     }
+
+    ++round
+    updateRound()
+    
+    numTiles = Math.min(nrow, ncol)
+    updateTiles()
+
+    console.log('nrow: ' + nrow)
+    console.log('ncol: ' + ncol)
 
     // 2. reset data and restore game buttons to original state
     resetRoundData()
@@ -232,6 +249,16 @@ const getRandomInt = (max) => {
 const updateScore = () => {
     let scoreLabel = document.getElementById('score')
     scoreLabel.textContent = 'score: ' + score
+}
+
+const updateRound = () => {
+    let roundLabel = document.getElementById('round')
+    roundLabel.textContent = 'round: ' + round
+}
+
+const updateTiles = () => {
+    let tilesLabel = document.getElementById('tiles')
+    tilesLabel.textContent = 'tiles: ' + numTiles
 }
 
 /**

@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     link(rel='stylesheet', href='/stylesheets/summary.css')
+    script(defer, src='/javascripts/memory-game/summary.js')
     <title>Memory Game</title>
 </head>
 <body>
+    <h1>Submit your score!</h3>
     <form class="form" action="/memory-game" method="post">
-      <h2>submit your score!</h2>
+      <h3>Join the leaderboards!</h3>
+
+      <span id="score"></span>
       <p type="username:"><input placeholder="you in the history books bruv" id="username" name="name_field"></input></p>
       <button type="submit">submit</button>
-      <button onclick="restartGame()">restart</button>
+      <button type="button" onclick="restartGame()">restart</button>
     </form>
 </body>
 </html>

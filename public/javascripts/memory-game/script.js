@@ -278,6 +278,8 @@ const initializeGame = () => {
 
 const terminateGame = () => {
     setTimeout(() => {
+        localStorage.setItem('score', score)
+        console.log(localStorage.getItem('score'))
         window.location.href = window.location.href + '/summary';
     }, 1000);
 }

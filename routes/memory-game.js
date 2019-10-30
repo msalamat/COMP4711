@@ -1,21 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const memGameController = require('../controllers/GameController')
 
-router.get('/', (req, res, next) => {
-    res.render('memory-game')
-})
+router.get('/', memGameController.getHomePage)
 
-router.get('/summary', (req, res, next) => {
-    res.render('summary')
-})
+router.get('/summary', memGameController.getSummaryPage)
 
-router.get('/leaderboard', (req, res, next) => {
-    res.render('leaderboard')
-})
+router.get('/leaderboard', memGameController.getLeaderboardPage)
 
-router.post('', (req, res, next) => {
-    console.log(req.body.name_field)
-    res.redirect('/memory-game/leaderboard')
-})
+router.post('/', memGameController.postScore)
 
 module.exports = router;

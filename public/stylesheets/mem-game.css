@@ -1,3 +1,8 @@
+body {
+    background: #EDF2F4;
+    margin: 0
+}
+
 #header {
     display: flex;
     justify-content: center;
@@ -9,19 +14,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: seashell;
+    /* background-color: seashell; */
     /* padding-top: 0%; */
 }
 
 #game-container {
-    /* border: 1px solid wheat; */
-    /* padding: 10px; */
+    border: 3px solid #F7FFF7;
+    padding: 10px;
+    background: #3A3042;
 }
 
-.button {
-    background-color: #f1c40f;
+.tile-btn {
+    background-color: #DBD5CC;
     border: none;
-    color: white;
     padding: 30px 30px;
     text-align: center;
     text-decoration: none;
@@ -30,13 +35,13 @@
     cursor: pointer;
 }
 
-.button:active {
-    background-color: #f1c40f;
+.tile-btn:active {
+    background-color: palegreen;
     transform: translateY(2px);
 }
 
-.button:hover {
-    background-color: palegreen;
+.tile-btn:hover {
+    background-color: palegreen !important;
 }
 
 .rotate-90 {
@@ -70,6 +75,15 @@
     animation-direction: alternate;
 }
 
+.thumbs-up {
+    background-image: url(../images/thumbs-up-64.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(270deg);
+}
+
+
+
 @keyframes example {
     0%   {background-color:red; left:0px; top:0px;}
     25%  {left:10px; top:0px;}
@@ -78,3 +92,44 @@
     100% {left:0px; top:0px;}
     
   }
+
+.modal {
+position: fixed;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+opacity: 0;
+visibility: hidden;
+transform: scale(1.1);
+transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+padding: 1rem 1.5rem;
+width: 24rem;
+border-radius: 0.5rem;
+}
+.close-button {
+float: right;
+width: 1.5rem;
+line-height: 1.5rem;
+text-align: center;
+cursor: pointer;
+border-radius: 0.25rem;
+background-color: lightgray;
+}
+.close-button:hover {
+background-color: darkgray;
+}
+.show-modal {
+opacity: 1;
+visibility: visible;
+transform: scale(1.0);
+transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}

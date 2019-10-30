@@ -6,20 +6,21 @@ let score = 0
 
 let clickingLock = true
 let oneWrong = false
+let allCorrect = false
 
 let nrow = 5
 let ncol = 5
 
 let switcher = true
 
-let round = 0
+let round = 1
 let numTiles = 5
 
 let targetObj = {}
 let targetProxy = new Proxy(targetObj, {
   set: function (target, key, value) {
     if (value === 0) {
-        setTimeout(nextRound, 1000)
+        setTimeout(nextRound, 2000)
     }  
   }
 })
@@ -37,12 +38,12 @@ const startRound = () => {
     let indiciesAsArray = Array.from(indicies).sort((a, b) => a - b)
 
     // use indicies to change button colours
-    let buttons = [...document.getElementsByClassName("button")]
+    let buttons = [...document.getElementsByClassName('tile-btn')]
 
     let filteredButtons = buttons.filter((_, index) => indicies.has(index))
 
     filteredButtons.forEach((element, index, array) => {
-        element.style.backgroundColor = "palegreen"
+        element.style.backgroundColor = 'palegreen'
         element.setAttribute("id", indiciesAsArray[index])
     })
 
@@ -63,16 +64,16 @@ const rotate = () => {
 }
 
 const resetColour = () => {
-    let bob = [...document.getElementsByClassName("button")].forEach(
+    let bob = [...document.getElementsByClassName('tile-btn')].forEach(
         (element, index, array) => {
-            element.style.backgroundColor = "#f1c40f"
+            element.style.backgroundColor = "#8D99AE"
         })
 }
 
 const reset = () => {
-    let bob = [...document.getElementsByClassName("button")].forEach( // why do I need to assign a variable? need to store the unpacked?
+    let bob = [...document.getElementsByClassName('tile-btn')].forEach(
         (element, index, array) => {
-            element.style.backgroundColor = "#f1c40f"
+            element.style.backgroundColor = "#8D99AE"
         })
     
     let x = document.getElementById('game-container')
@@ -85,28 +86,29 @@ const clicked = (ref) => {
         let indicies = JSON.parse(localStorage.getItem('indicies'))
 
         if (clicksLeft > 0) {
-            // TODO can use our buddy demorgan to reduce things !(a or b) = !a and !b
             if (ref.classList.contains('error-img') || (ref.style.backgroundColor) === "palegreen") {
                 console.log('do nothing')
             } else {
                 --clicksLeft
-                
                 if (ref.id !== "" && indicies.includes(Number(ref.id))) {
-                    ref.style.backgroundColor = "palegreen"
                     ++score
+                    if (clicksLeft === 0 && !oneWrong) {
+                        ref.classList.add('thumbs-up')
+                    } else {
+                        ref.style.backgroundColor = "palegreen"
+                    }
                 } else {
-                    oneWrong = true
-
-                    ref.classList.add('error-img')
-                    
                     --score
+                    ref.classList.add('error-img')
+                    oneWrong = true
                 }
+
                 updateScore()
 
                 targetProxy.value = clicksLeft
 
-                if (score < 0) {
-                    console.log('LOST')
+                if (score <= 0) {
+                    terminateGame()
                 }
             }
         } else {
@@ -137,16 +139,15 @@ const nextRound = () => {
         } else if (nrow > ncol) {
             ++ncol
         }
+
+        allCorrect = true
     }
 
     ++round
     updateRound()
-    
+     
     numTiles = Math.min(nrow, ncol)
     updateTiles()
-
-    console.log('nrow: ' + nrow)
-    console.log('ncol: ' + ncol)
 
     // 2. reset data and restore game buttons to original state
     resetRoundData()
@@ -191,8 +192,8 @@ const constructButtonNodes = (nrow, ncol) => {
     for (let i = 0; i < nrow * ncol; ++i) {
         let button = document.createElement('button')
         button.setAttribute('onclick', 'clicked(this)')
-        button.classList.add('button')
-        button.style.backgroundColor = 'rgb(241, 196, 15)'
+        button.classList.add('tile-btn')
+        button.style.backgroundColor = '#8D99AE'
         buttons.push(button)
     }
 
@@ -200,7 +201,7 @@ const constructButtonNodes = (nrow, ncol) => {
 }
 
 const clearGameBoard = () => {
-    let buttons = [...document.getElementsByClassName("button")]
+    let buttons = [...document.getElementsByClassName('tile-btn')]
     buttons.forEach( (button) => button.remove())
     
     let element = document.getElementById('game-container')
@@ -223,11 +224,11 @@ const resetRoundData = () => {
     x.classList.add("rotate-neg-90");
 
     // reset button attributes
-    let bob = [...document.getElementsByClassName("button")].forEach(
+    let bob = [...document.getElementsByClassName('tile-btn')].forEach(
         (element, index, array) => {
             element.removeAttribute('id')
             element.removeAttribute('style')
-            element.style.backgroundColor = "f1c40f"
+            element.style.backgroundColor = "#8D99AE"
             element.classList.remove('error-img')
         })
 }
@@ -244,21 +245,6 @@ const getIndicies = () => {
 
 const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
-}
-
-const updateScore = () => {
-    let scoreLabel = document.getElementById('score')
-    scoreLabel.textContent = 'score: ' + score
-}
-
-const updateRound = () => {
-    let roundLabel = document.getElementById('round')
-    roundLabel.textContent = 'round: ' + round
-}
-
-const updateTiles = () => {
-    let tilesLabel = document.getElementById('tiles')
-    tilesLabel.textContent = 'tiles: ' + numTiles
 }
 
 /**
@@ -279,8 +265,8 @@ const initializeGame = () => {
             let button = document.createElement('button')
 
             button.setAttribute('onclick', 'clicked(this)')
-            button.classList.add('button')
-            button.style.backgroundColor = 'rgb(241, 196, 15)'
+            button.classList.add('tile-btn')
+            button.style.backgroundColor = '#8D99AE'
             div.appendChild(button)
         }
         gameContainerDiv.appendChild(div)
@@ -289,6 +275,47 @@ const initializeGame = () => {
     let containerDiv = document.getElementById('container')
     containerDiv.appendChild(gameContainerDiv)
 }
+
+const terminateGame = () => {
+    setTimeout(() => {
+        window.location.href = window.location.href + '/summary';
+    }, 1000);
+}
+
+const updateScore = () => {
+    let scoreLabel = document.getElementById('score')
+    scoreLabel.textContent = 'score: ' + score
+}
+
+const updateRound = () => {
+    let roundLabel = document.getElementById('round')
+    roundLabel.textContent = 'round: ' + round
+}
+
+const updateTiles = () => {
+    let tilesLabel = document.getElementById('tiles')
+    tilesLabel.textContent = 'tiles: ' + numTiles
+}
+
+// modal code, from Pure
+
+let modal = document.querySelector(".modal");
+let trigger = document.querySelector(".trigger");
+let closeButton = document.querySelector(".close-button");
+
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+trigger.addEventListener("click", toggleModal);
+closeButton.addEventListener("click", toggleModal);
+window.addEventListener("click", windowOnClick);
 
 initializeGame()
 

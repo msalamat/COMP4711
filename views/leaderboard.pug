@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    link(rel='stylesheet', href='/stylesheets/summary.css')
-    <title>Memory Game</title>
-</head>
-<body>
-    <form class="form" action="/memory-game" method="post">
-      <h2>heyy!</h2>
-    </form>
-</body>
-</html>
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    script(defer, src='/javascripts/memory-game/leaderboard.js')
+    link(rel='stylesheet', href='/stylesheets/leaderboard.css')
+  body
+    title Memory Game
+    form.form(action='/memory-game', method='post')
+      button(type='button', onclick='restartGame()') restart
+      br
+      h3 Leaderboards
+      p #{currentUser.Username} | scored #{currentUser.Score} | rank: #{userRank}
+      table(cellspacing='20')
+        tbody
+          each val in top5
+            tr
+              th= val.Username
+              th= val.Score

@@ -9,6 +9,34 @@ window.onload = () => {
     }
 }
 
-restartGame = () => {
+const restartGame = () => {
     window.location.href = '/memory-game';
+}
+
+const submitToLeaderboard = () => {
+    const url = '/memory-game'
+
+    let el = document.getElementById('username')
+
+    let data = {
+        name: el.value,
+        score: localStorage.getItem('score'),
+    }
+
+    try {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    } catch (error) {
+        console.error('Error:', error)
+    }
+
+    setTimeout(() => {
+        window.location.href = '/memory-game/leaderboard?user='+data.name;    
+    }, 1000);
+    
 }

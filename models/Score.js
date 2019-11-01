@@ -29,7 +29,7 @@ const getAllScores = async () => {
     let top5;
     console.log("get all scores 1")
 
-    db.close()
+    await db.close()
     console.log("get all scores 2")
 
     return await db.connect().then(async function () {

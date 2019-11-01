@@ -13,7 +13,7 @@ const restartGame = () => {
     window.location.href = '/memory-game';
 }
 
-const submitToLeaderboard = () => {
+const submitToLeaderboard = async () => {
     const url = '/memory-game'
 
     let el = document.getElementById('username')
@@ -22,7 +22,7 @@ const submitToLeaderboard = () => {
         name: el.value,
         score: localStorage.getItem('score'),
     }
-
+    let url2 = '/memory-game/leaderboard?user='+data.name;
     try {
         fetch(url, {
             method: 'POST',
@@ -30,13 +30,21 @@ const submitToLeaderboard = () => {
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then((lol) => {
+            console.log('hi ' + lol)
+            window.location.href = url2;
+            
+            console.log
         })
-    } catch (error) {
-        console.error('Error:', error)
+    } catch (err) {
+        console.log(err)
     }
+    
 
-    setTimeout(() => {
-        window.location.href = '/memory-game/leaderboard?user='+data.name;    
-    }, 1000);
+     
+
+    // setTimeout(() => {
+    //     window.location.href = '/memory-game/leaderboard?user='+data.name;    
+    // }, 5000);
     
 }

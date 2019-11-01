@@ -3,7 +3,7 @@ let sql = require('mssql')
 
 const addScore = async (player) => {
 
-    console.log("player: " + player.name)
+    //console.log("player: " + player.name)
     // console.log(player.name);
     let sql = `INSERT INTO [dbo].[Players] (Username,Score) VALUES ('${player.name}',${player.score})`;
     // console.log(sql);

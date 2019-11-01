@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const memGameController = require('../controllers/GameController')
 
+// /memory-game/
 router.get('/', memGameController.getHomePage)
 
 router.get('/summary', memGameController.getSummaryPage)

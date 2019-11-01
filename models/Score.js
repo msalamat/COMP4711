@@ -27,8 +27,14 @@ const addScore = async (player) => {
 
 const getAllScores = async () => {
     let top5;
-    await db.close()
+    console.log("get all scores 1")
+
+    db.close()
+    console.log("get all scores 2")
+
     return await db.connect().then(async function () {
+        console.log("get all scores 3")
+
         let request = new sql.Request(db);
         try {
             top5 =  await request.query("SELECT * FROM Players")
@@ -36,7 +42,7 @@ const getAllScores = async () => {
             console.log(err)
         }  
         // await db.close()
-
+        console.log("get all scores 4")
         return top5
     }).catch(function (err) {
         console.log(err);

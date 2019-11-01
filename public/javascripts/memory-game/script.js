@@ -16,6 +16,11 @@ let switcher = true
 let round = 1
 let numTiles = 5
 
+// const mySound = new sound('../public/files/3-second-music.mp3')
+
+const audio = new Audio('../music/music.mp3');
+const bgm = new Audio('../music/maple.mp3')
+
 let targetObj = {}
 let targetProxy = new Proxy(targetObj, {
   set: function (target, key, value) {
@@ -29,6 +34,7 @@ window.onload = () => {
     updateScore()
     updateRound()
     updateTiles()
+    bgm.play()
 }
 
 const startRound = () => {
@@ -153,16 +159,24 @@ const nextRound = () => {
     resetRoundData()
 
     // 3.1 clear current buttons
-    clearGameBoard()
+    // clearGameBoard()
 
-    // 4. construct new buttons
-    let nodes = constructButtonNodes(nrow, ncol)
-    // 5. insert new buttons into DOM
-    insertButtonsToDOM(nodes)
+    setTimeout(() => {
+        clearGameBoard()
+        audio.play();
+    }, 1);
 
-    console.log('next round beginning!')
+    setTimeout(() => {
+        // 4. construct new buttons
+        let nodes = constructButtonNodes(nrow, ncol)
+        // 5. insert new buttons into DOM
+        insertButtonsToDOM(nodes)
 
-    startRound()
+        console.log('next round beginning!')
+
+        startRound()
+    }, 3000)
+
 }
 
 const insertButtonsToDOM = (buttons) => {
@@ -300,7 +314,6 @@ const updateTiles = () => {
 }
 
 // modal code, from Pure
-
 let modal = document.querySelector(".modal");
 let trigger = document.querySelector(".trigger");
 let closeButton = document.querySelector(".close-button");
@@ -312,6 +325,21 @@ function toggleModal() {
 function windowOnClick(event) {
     if (event.target === modal) {
         toggleModal();
+    }
+}
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
     }
 }
 
